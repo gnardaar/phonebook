@@ -1,14 +1,14 @@
 from flask import Blueprint, render_template
 
-site = Blueprint('site', __name__, template_folder='site_templates')
+site = Blueprint('site', __name__, template_folder='site-templates')
 
 @site.route('/')
 def home():
-    return render_template('./site-templates/index.html')
+    return render_template('index.html')
 
 @site.route('/profile')
 def profile():
-    return render_template('/profile.html')
+    return render_template('profile.html')
 
-// regex 
+
 
