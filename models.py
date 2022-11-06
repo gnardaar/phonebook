@@ -8,16 +8,13 @@ from flask_login import LoginManager
 from flask_marshmallow import Marshmallow 
 import secrets
 
-# setting variables for class instantiation
 login_manager = LoginManager()
 ma = Marshmallow()
-db = SQLALCHEMY()
-
+db = SQLAlchemy()
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-
 
 class User(db.Model, UserMixin):
     id = db.Column(db.String, primary_key=True)
@@ -51,16 +48,15 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'User {self.email} has been added to the database'
         
-class Contact(db, db.Model):
-    id = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)
-    email = db.Column(db.String(150))
-    phone_number = db.Column(db.String(150))
+class Contact(db.Model):
+    id = db.Column(db.String, primary_key = True)
+    name = db.Column(db.String(150), nullable = False)
+    email = db.Column(db.String(200))
+    phone_number = db.Column(db.String(20))
     address = db.Column(db.String(200))
-    user_token = db.Column(db.String, db.ForeignKey(
-        'user.token'), nullable=False)
+    user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self, name, email, phone_number, address, user_token, id=''):
+    def __init__(self,name,email,phone_number,address,user_token, id = ''):
         self.id = self.set_id()
         self.name = name
         self.email = email
@@ -68,16 +64,16 @@ class Contact(db, db.Model):
         self.address = address
         self.user_token = user_token
 
+
     def __repr__(self):
-        return f'the Following contact has been added to the phone book: {self.name}'
+        return f'The following contact has been added to the phonebook: {self.name}'
 
     def set_id(self):
         return (secrets.token_urlsafe())
 
-
-class ContactSchema(ma, Schema):
-    fields = ['id', 'name', 'email', 'phone_number', 'address']
-
+class ContactSchema(ma.Schema):
+    class Meta:
+        fields = ['id', 'name','email','phone_number', 'address']
 
 contact_schema = ContactSchema()
 contacts_schema = ContactSchema(many=True)
