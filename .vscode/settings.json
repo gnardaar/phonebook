@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
-        "dotenv"
+        "dotenv",
+        "jsonify",
+        "NOTIFICAITONS",
+        "signin",
+        "sqlalchemy",
+        "werkzeug"
     ]
 }
