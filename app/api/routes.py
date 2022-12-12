@@ -10,9 +10,20 @@ def getdata():
 
 @api.route('/contacts',methods=['POST'])
 @token_required
-def create_contact(current_user):
+def create_contact(current_user_token):
     name = request.json['name']
-    email = request.json
+    email = request.json['email']
+    phone_number = request.json['phone_number']
+    address = request.json['address']
+    user_token = current_user_token.token
+
+    print(f'BIG tester: {current_user_token.token}')
 
 
 
+    contact = Contact(name,email,phone_number,address,user_token=user_token)
+    db.session.add(contact)
+    db.session.commit()
+
+    response = contact_schema.dump(contact)
+    return jsonify(request)
