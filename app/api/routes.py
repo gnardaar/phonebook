@@ -19,6 +19,8 @@ def create_contact(current_user_token):
 
     print(f'BIG tester: {current_user_token.token}')
 
+    #need get request and delete and update(  'PUT'  ) method
+
 
 
     contact = Contact(name,email,phone_number,address,user_token=user_token)
@@ -26,4 +28,4 @@ def create_contact(current_user_token):
     db.session.commit()
 
     response = contact_schema.dump(contact)
-    return jsonify(request)
+    return jsonify(response)
